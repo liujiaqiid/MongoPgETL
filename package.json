@@ -1,0 +1,16 @@
+{
+  "name": "MongoPgETL",
+  "author": "Jacky",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "pm2 main.js --name Web"
+  },
+  "dependencies": {
+    "connect": "3.3.5",
+    "pg":"4.4.0"
+  },
+  "devDependencies": {
+  }
+}
+

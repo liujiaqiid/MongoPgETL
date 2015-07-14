@@ -1,0 +1,13 @@
+node_modules
+.DS_Store
+.README.md.html
+.settings
+.project
+.idea
+*.swp
+lib-cov
+logs/*
+*.log
+private/*
+coverage.html
+app/configs/AuthKeys.js
