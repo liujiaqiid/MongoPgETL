@@ -1,29 +1,24 @@
 /**
  * App Main Entrance
  */
-var express = require('express')
-  //, connect = require('connect')
-  , favicon = require('serve-favicon')
-  , serveStatic = require('serve-static')
-  , bodyParser = require('body-parser')
-  , jsonParser = bodyParser.json()
-  //, urlencodedParser = bodyParser.urlencoded({ extended: false }
-  , router = require('./app/router.js')
-  , PORT = require('./app/configs/server').port
-  , DIR = '/public'//'/tests/pagination'
-  , ICO_DIR = '/public/juliye.ico';
+var pg = require('pg');
+var conString = "postgres://username:password@localhost/database";
 
-var app = express();
+//this starts initializes a connection pool
+//it will keep idle connections open for a (configurable) 30 seconds
+//and set a limit of 20 (also configurable)
+pg.connect(conString, function(err, client, done) {
+  if(err) {
+    return console.error('error fetching client from pool', err);
+  }
+  client.query('SELECT $1::int AS number', ['1'], function(err, result) {
+    //call `done()` to release the client back to the pool
+    done();
 
-//set web public view
-app.use(serveStatic(__dirname + DIR));
-//set web logo
-app.use(favicon(__dirname + ICO_DIR));
-//body parse  application/json
-app.use(jsonParser);
-
-//set app routers
-router(app);
-
-//start app, will load
-app.listen(PORT);
+    if(err) {
+      return console.error('error running query', err);
+    }
+    console.log(result.rows[0].number);
+    //output: 1
+  });
+});
