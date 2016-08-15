@@ -1,24 +1,54 @@
-/**
- * App Main Entrance
- */
-var pg = require('pg');
-var conString = "postgres://username:password@localhost/database";
+//var Date = require("./app/libs/Date");
+//var op = require("./app/spouts/UpInsertDate");
+var Q = require("Q");
 
-//this starts initializes a connection pool
-//it will keep idle connections open for a (configurable) 30 seconds
-//and set a limit of 20 (also configurable)
-pg.connect(conString, function(err, client, done) {
-  if(err) {
-    return console.error('error fetching client from pool', err);
-  }
-  client.query('SELECT $1::int AS number', ['1'], function(err, result) {
-    //call `done()` to release the client back to the pool
-    done();
 
-    if(err) {
-      return console.error('error running query', err);
+(function(){
+  var defer = Q.defer();
+
+  //Q.fcall(function(){ console.log("00000"); return 0;})
+  //  .then(function(d){
+  //    throw new Error("a")
+  //    console.log("11111"+d);
+  //    return 1;
+  //  })
+  //  .then(function(d){
+  //    console.log("22222"+d);
+  //    return 2;
+  //  },function(d){
+  //    console.log("33333"+d);
+  //  });
+
+  //console.log("444444");
+
+  //Q.fcall(function(){ console.log(" "); return 0;})
+  //  .then(function(d){
+  //    console.log("11111"+d);
+  //    return Q.fcall(function(){
+  //        console.log("11111");
+  //        throw new Error("xxxxx");
+  //        return 1;})
+  //      .then(function(d){
+  //        console.log("22222"+d);
+  //        return 2;
+  //      });
+  //  })
+  //  .then(function(d){
+  //    console.log("333333"+d);
+  //    return 3;
+  //  },function(d){
+  //    console.log("555555"+d);
+  //  });
+
+  var func = {
+    init: function(f1){
+      f1();
+    },
+    then: function(f2){
+
     }
-    console.log(result.rows[0].number);
-    //output: 1
-  });
-});
+  }
+
+
+
+})();
